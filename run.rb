@@ -8,20 +8,23 @@ class Main
     wrong_spot  = '?'
 
     word  = Words.new.get_word
-    cnt   = 0
+    cnt   = 1
+    puts word
 
-    past = []
+    guesses = []
+    fields  = []
 
-    puts "Guess #{cnt+1} of 6\nEnter a 5 letter word:"
-
-    while cnt < 6
+    while cnt <= 6
       field = '*****'
+
+      puts "Guess #{cnt} of 6\nEnter a 5 letter word:"
       guess = gets.chomp.downcase
-      past << guess
+      guesses << guess
 
       if word == guess
-        puts 'You got it right! Here were your guesses:'
-        puts past
+        fields << '!!!!!'
+        puts "You got it right in #{cnt} guesses:"
+        puts printout(guesses, fields)
         return
 
       elsif word.count(guess) > 0
@@ -38,11 +41,18 @@ class Main
         puts 'No Match'
       end
 
+      fields << field
       cnt += 1
     end
 
-    puts past
-    puts "Word was: #{word}" unless past[-1] == word
+    puts printout(guesses, fields)
+    puts "Word was: #{word}" unless guesses[-1] == word
+  end
+
+  def printout(g,f)
+    g.each_with_index.map do |x,i|
+      "#{x}: #{f[i]}" unless f[i].nil?
+    end
   end
 end
 
