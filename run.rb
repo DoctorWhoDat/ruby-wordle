@@ -9,7 +9,6 @@ class Main
 
     word  = Words.new.get_word
     cnt   = 1
-    puts word
 
     guesses = []
     fields  = []
